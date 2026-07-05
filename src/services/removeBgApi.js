@@ -1,3 +1,5 @@
+import { ensureToolUsage } from '../utils/toolUsage';
+
 const REMOVEBG_URL = 'https://api.remove.bg/v1.0/removebg';
 
 function getApiKey() {
@@ -35,6 +37,8 @@ async function parseRemoveBgError(response) {
 }
 
 export async function removeImageBackground(file, { size = 'auto' } = {}) {
+  ensureToolUsage('background-remover', 'Background Remover');
+
   if (!file) {
     throw new Error('Please select an image to process.');
   }

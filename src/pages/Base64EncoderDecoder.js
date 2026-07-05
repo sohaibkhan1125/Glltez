@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { guardClientTool } from '../utils/guardClientTool';
 import ToolNavbar from '../components/ToolNavbar';
 
 const SAMPLE_TEXT = 'Hello, ToolNexa! 🚀';
@@ -27,6 +28,7 @@ function Base64EncoderDecoder() {
   const [copied, setCopied] = useState(false);
 
   const handleEncode = () => {
+    if (!guardClientTool('base64-encoder-decoder', 'Base64 Encoder/Decoder', setError)) return;
     setError('');
     setSuccess('');
     setOutput('');
@@ -45,6 +47,7 @@ function Base64EncoderDecoder() {
   };
 
   const handleDecode = () => {
+    if (!guardClientTool('base64-encoder-decoder', 'Base64 Encoder/Decoder', setError)) return;
     setError('');
     setSuccess('');
     setOutput('');

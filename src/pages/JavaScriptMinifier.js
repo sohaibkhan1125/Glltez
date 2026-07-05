@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { guardClientTool } from '../utils/guardClientTool';
 import ToolNavbar from '../components/ToolNavbar';
 
 const SAMPLE_JS = `/**
@@ -59,6 +60,7 @@ function JavaScriptMinifier() {
   const [stats, setStats] = useState(null);
 
   const handleMinify = () => {
+    if (!guardClientTool('javascript-minifier', 'JavaScript Minifier', setError)) return;
     setError('');
     setSuccess('');
     setOutput('');

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { guardClientTool } from '../utils/guardClientTool';
 import ToolNavbar from '../components/ToolNavbar';
 
 const SAMPLE_TEXT = 'Hello World from ToolNexa Online Tools';
@@ -67,6 +68,7 @@ function TextCaseConverter() {
   const [copied, setCopied] = useState(false);
 
   const handleConvert = (caseId) => {
+    if (!guardClientTool('text-case-converter', 'Text Case Converter', setError)) return;
     setError('');
     setSuccess('');
 

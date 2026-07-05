@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { guardClientTool } from '../utils/guardClientTool';
 import ToolNavbar from '../components/ToolNavbar';
 
 const LOREM_WORDS = [
@@ -99,6 +100,7 @@ function LoremIpsumGenerator() {
   const [copied, setCopied] = useState(false);
 
   const handleGenerate = () => {
+    if (!guardClientTool('lorem-ipsum-generator', 'Lorem Ipsum Generator', setError)) return;
     setError('');
     setSuccess('');
     setOutput('');

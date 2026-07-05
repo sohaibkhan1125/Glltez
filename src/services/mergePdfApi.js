@@ -1,3 +1,5 @@
+import { ensureToolUsage } from '../utils/toolUsage';
+
 const MERGE_URL = 'https://v2.convertapi.com/convert/pdf/to/merge';
 const COMPRESS_URL = 'https://v2.convertapi.com/convert/pdf/to/compress';
 const PDF_TO_DOCX_URL = 'https://v2.convertapi.com/convert/pdf/to/docx';
@@ -165,6 +167,7 @@ async function convertPdfToImages(file, {
 }
 
 export async function mergePdfFiles(files) {
+  ensureToolUsage('merge-pdf', 'Merge PDF');
   if (!files?.length || files.length < 2) {
     throw new Error('Please select at least 2 PDF files to merge.');
   }
@@ -192,6 +195,7 @@ export async function mergePdfFiles(files) {
 }
 
 export async function compressPdfFile(file, preset = 'web') {
+  ensureToolUsage('compress-pdf', 'Compress PDF');
   if (!file) {
     throw new Error('Please select a PDF file to compress.');
   }
@@ -235,6 +239,7 @@ export async function compressJpgFile(file, {
   percentage = '',
   targetSize = '',
 } = {}) {
+  ensureToolUsage('image-compressor', 'Image Compressor');
   if (!file) {
     throw new Error('Please select a JPG image to compress.');
   }
@@ -278,6 +283,7 @@ export async function compressJpgFile(file, {
 }
 
 export async function convertJpgToPng(file) {
+  ensureToolUsage('jpg-to-png', 'JPG to PNG');
   if (!file) {
     throw new Error('Please select a JPG image to convert.');
   }
@@ -309,6 +315,7 @@ export async function convertJpgToPng(file) {
 }
 
 export async function convertJpgToWebp(file) {
+  ensureToolUsage('jpg-to-webp', 'JPG to WebP');
   if (!file) {
     throw new Error('Please select a JPG image to convert.');
   }
@@ -345,6 +352,7 @@ function isPngFile(file) {
 }
 
 export async function convertPngToJpg(file) {
+  ensureToolUsage('png-to-jpg', 'PNG to JPG');
   if (!file) {
     throw new Error('Please select a PNG image to convert.');
   }
@@ -376,6 +384,7 @@ export async function convertPngToJpg(file) {
 }
 
 export async function convertPngToSvg(file) {
+  ensureToolUsage('png-to-svg', 'PNG to SVG');
   if (!file) {
     throw new Error('Please select a PNG image to convert.');
   }
@@ -412,6 +421,7 @@ function isSvgFile(file) {
 }
 
 export async function convertSvgToPng(file) {
+  ensureToolUsage('svg-to-png', 'SVG to PNG');
   if (!file) {
     throw new Error('Please select an SVG file to convert.');
   }
@@ -443,6 +453,7 @@ export async function convertSvgToPng(file) {
 }
 
 export async function convertPngToWebp(file) {
+  ensureToolUsage('png-to-webp', 'PNG to WebP');
   if (!file) {
     throw new Error('Please select a PNG image to convert.');
   }
@@ -479,6 +490,7 @@ function isGifFile(file) {
 }
 
 export async function convertGifToJpg(file, { quality = 90, alphaColor = 'white' } = {}) {
+  ensureToolUsage('format-converter', 'Format Converter');
   if (!file) {
     throw new Error('Please select a GIF image to convert.');
   }
@@ -540,6 +552,7 @@ function isPsdFile(file) {
 }
 
 export async function convertPsdToJpg(file) {
+  ensureToolUsage('psd-to-jpg', 'PSD to JPG');
   if (!file) {
     throw new Error('Please select a PSD file to convert.');
   }
@@ -588,6 +601,7 @@ export async function convertPsdToJpg(file) {
 }
 
 export async function convertPdfToDocx(file) {
+  ensureToolUsage('pdf-to-word', 'PDF to Word');
   if (!file) {
     throw new Error('Please select a PDF file to convert.');
   }
@@ -628,6 +642,7 @@ function isExcelFile(file) {
 }
 
 export async function convertXlsxToPdf(file) {
+  ensureToolUsage('xlsx-to-pdf', 'XLSX to PDF');
   if (!file) {
     throw new Error('Please select an Excel file to convert.');
   }
@@ -659,6 +674,7 @@ export async function convertXlsxToPdf(file) {
 }
 
 export async function convertXlsxToPng(file, { pageRange = '', resolution = 300 } = {}) {
+  ensureToolUsage('xlsx-to-png', 'XLSX to PNG');
   if (!file) {
     throw new Error('Please select an Excel file to convert.');
   }
@@ -722,6 +738,7 @@ function htmlFileFromString(html, fileName = 'document.html') {
 }
 
 export async function convertHtmlToPdf({ html, file, pageSize = 'a4', pageOrientation = 'portrait' }) {
+  ensureToolUsage('html-to-pdf', 'HTML to PDF');
   let htmlFile = file;
 
   if (!htmlFile) {
@@ -765,6 +782,7 @@ export async function convertHtmlToPdf({ html, file, pageSize = 'a4', pageOrient
 }
 
 export async function convertWebToPdf(url, { pageSize = 'a4', pageOrientation = 'portrait' } = {}) {
+  ensureToolUsage('web-to-pdf', 'Web to PDF');
   const trimmed = url?.trim();
   if (!trimmed) {
     throw new Error('Please enter a website URL.');
@@ -815,6 +833,7 @@ export async function convertWebToPdf(url, { pageSize = 'a4', pageOrientation = 
 }
 
 export async function convertPdfToJpg(file, { pageRange = '', resolution = 300 } = {}) {
+  ensureToolUsage('pdf-to-jpg', 'PDF to JPG');
   return convertPdfToImages(file, {
     convertUrl: PDF_TO_JPG_URL,
     zipUrl: JPG_TO_ZIP_URL,
@@ -827,6 +846,7 @@ export async function convertPdfToJpg(file, { pageRange = '', resolution = 300 }
 }
 
 export async function convertPdfToPng(file, { pageRange = '', resolution = 300 } = {}) {
+  ensureToolUsage('pdf-to-png', 'PDF to PNG');
   return convertPdfToImages(file, {
     convertUrl: PDF_TO_PNG_URL,
     zipUrl: PNG_TO_ZIP_URL,
@@ -849,6 +869,7 @@ function isPptxFile(file) {
 }
 
 export async function convertPptxToPng(file, { pageRange = '', resolution = 300 } = {}) {
+  ensureToolUsage('pptx-to-png', 'PPTX to PNG');
   if (!file) {
     throw new Error('Please select a PowerPoint file to convert.');
   }
@@ -904,6 +925,7 @@ export async function convertPptxToPng(file, { pageRange = '', resolution = 300 
 }
 
 export async function deletePdfPages(file, { pageRange = '', password = '', deleteBlankPages = false } = {}) {
+  ensureToolUsage('delete-pdf-pages', 'Delete PDF Pages');
   if (!file) {
     throw new Error('Please select a PDF file.');
   }
@@ -962,6 +984,7 @@ export async function cropPdf(file, {
   verticalMargin = 1,
   horizontalMargin = 1,
 } = {}) {
+  ensureToolUsage('crop-pdf', 'Crop PDF');
   if (!file) {
     throw new Error('Please select a PDF file.');
   }
@@ -1041,6 +1064,7 @@ export async function protectPdf(file, {
   fillFormFields = false,
   modifyAnnotations = false,
 } = {}) {
+  ensureToolUsage('protect-pdf', 'Protect PDF');
   if (!file) {
     throw new Error('Please select a PDF file.');
   }
@@ -1107,6 +1131,7 @@ export async function watermarkPdf(file, overlayFile, {
   horizontalAlignment = 'center',
   verticalAlignment = 'center',
 } = {}) {
+  ensureToolUsage('pdf-watermark', 'PDF Watermark');
   if (!file) {
     throw new Error('Please select the PDF file to watermark.');
   }

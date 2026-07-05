@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { guardClientTool } from '../utils/guardClientTool';
 import ToolNavbar from '../components/ToolNavbar';
 
 const CHARSETS = {
@@ -126,6 +127,7 @@ function PasswordGenerator() {
   const [copiedIndex, setCopiedIndex] = useState(null);
 
   const handleGenerate = () => {
+    if (!guardClientTool('password-generator', 'Password Generator', setError)) return;
     setError('');
     setSuccess('');
     setCopiedIndex(null);

@@ -1,3 +1,5 @@
+import { ensureToolUsage } from '../utils/toolUsage';
+
 const WRITING_MODES = {
   blog: 'Write a well-structured blog post about:',
   email: 'Write a professional email about:',
@@ -122,7 +124,9 @@ function extractContent(data) {
   return null;
 }
 
-async function callGpt(messages) {
+async function callGpt(messages, toolId, toolName) {
+  ensureToolUsage(toolId, toolName);
+
   const apiKey = process.env.REACT_APP_RAPIDAPI_KEY;
   if (!apiKey) {
     throw new Error('REACT_APP_RAPIDAPI_KEY is not configured. Add it to your .env file.');
@@ -168,7 +172,7 @@ export async function generateText({ prompt, mode = 'custom', tone = 'profession
     ? `${prefix} ${prompt}\n\nTone: ${tone}. Make it clear, engaging, and well-formatted.`
     : `${prompt}\n\nTone: ${tone}.`;
 
-  return callGpt([{ role: 'user', content: userContent }]);
+  return callGpt([{ role: 'user', content: userContent }], 'ai-writer', 'AI Writer');
 }
 
 export async function summarizeText({ text, length = 'moderate', format = 'paragraph' }) {
@@ -177,7 +181,7 @@ export async function summarizeText({ text, length = 'moderate', format = 'parag
 
   const userContent = `Summarize the following text clearly and accurately. ${lengthInstruction} ${formatInstruction}\n\nText to summarize:\n\n${text}`;
 
-  return callGpt([{ role: 'user', content: userContent }]);
+  return callGpt([{ role: 'user', content: userContent }], 'text-summarizer', 'Text Summarizer');
 }
 
 export async function assistWithCode({ input, task = 'explain', language = 'javascript' }) {
@@ -192,7 +196,7 @@ Format code blocks with proper syntax. Be practical and concise.
 Input:
 ${input}`;
 
-  return callGpt([{ role: 'user', content: userContent }]);
+  return callGpt([{ role: 'user', content: userContent }], 'code-assistant', 'Code Assistant');
 }
 
 export async function rewriteArticle({ text, style = 'standard', tone = 'professional' }) {
@@ -206,7 +210,7 @@ Original article:
 
 ${text}`;
 
-  return callGpt([{ role: 'user', content: userContent }]);
+  return callGpt([{ role: 'user', content: userContent }], 'article-rewriter', 'AI Article Rewriter');
 }
 
 export async function generateEmail({
@@ -230,7 +234,7 @@ Return only the email with no extra commentary.
 Details:
 ${prompt}`;
 
-  return callGpt([{ role: 'user', content: userContent }]);
+  return callGpt([{ role: 'user', content: userContent }], 'email-writer', 'AI Email Writer');
 }
 
 export async function generateBlogPost({
@@ -253,7 +257,7 @@ Return only the blog post with no extra commentary.
 Topic:
 ${topic}`;
 
-  return callGpt([{ role: 'user', content: userContent }]);
+  return callGpt([{ role: 'user', content: userContent }], 'blog-post-generator', 'AI Blog Post Generator');
 }
 
 export async function generateAdCopy({
@@ -275,7 +279,7 @@ Return only the ad copy with clear labels (Headline, Body, CTA, etc.) and no ext
 Product or service details:
 ${product}`;
 
-  return callGpt([{ role: 'user', content: userContent }]);
+  return callGpt([{ role: 'user', content: userContent }], 'ad-copy-generator', 'AI Ad Copy Generator');
 }
 
 export async function generateScript({
@@ -298,7 +302,7 @@ Return only the script with no extra commentary.
 Topic or brief:
 ${topic}`;
 
-  return callGpt([{ role: 'user', content: userContent }]);
+  return callGpt([{ role: 'user', content: userContent }], 'script-generator', 'AI Script Generator');
 }
 
 export async function generateSocialCaption({
@@ -321,7 +325,7 @@ Return only the captions with no extra commentary.
 Post topic or description:
 ${topic}`;
 
-  return callGpt([{ role: 'user', content: userContent }]);
+  return callGpt([{ role: 'user', content: userContent }], 'social-caption-generator', 'AI Social Caption Generator');
 }
 
 export async function generateStory({
@@ -346,7 +350,7 @@ Return only the story with no extra commentary.
 Story prompt or idea:
 ${prompt}`;
 
-  return callGpt([{ role: 'user', content: userContent }]);
+  return callGpt([{ role: 'user', content: userContent }], 'story-generator', 'AI Story Generator');
 }
 
 export async function generateSeoTitles({
@@ -370,7 +374,7 @@ Number each title (1., 2., etc.) and return only the title list with no extra co
 Topic or content description:
 ${topic}`;
 
-  return callGpt([{ role: 'user', content: userContent }]);
+  return callGpt([{ role: 'user', content: userContent }], 'seo-title-generator', 'AI SEO Title Generator');
 }
 
 export async function generateInvoice({
@@ -403,7 +407,7 @@ Return only the completed invoice with no extra commentary.
 Items or services:
 ${items}`;
 
-  return callGpt([{ role: 'user', content: userContent }]);
+  return callGpt([{ role: 'user', content: userContent }], 'invoice-generator', 'AI Invoice Generator');
 }
 
 export {

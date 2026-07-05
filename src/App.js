@@ -52,7 +52,12 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsAndConditions from './pages/TermsAndConditions';
 import Disclaimer from './pages/Disclaimer';
 import ContactUs from './pages/ContactUs';
+import Pricing from './pages/Pricing';
+import Checkout from './pages/Checkout';
+import CheckoutSuccess from './pages/CheckoutSuccess';
+import CheckoutCancel from './pages/CheckoutCancel';
 import BackToTop from './components/BackToTop';
+import UsageLimitProvider from './components/UsageLimitProvider';
 
 function App() {
   return (
@@ -118,7 +123,12 @@ function App() {
           <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
           <Route path="/disclaimer" element={<Disclaimer />} />
           <Route path="/contact-us" element={<ContactUs />} />
+          <Route path="/pricing" element={<Pricing />} />
+          <Route path="/checkout/:plan" element={<Checkout />} />
+          <Route path="/checkout/success" element={<CheckoutSuccess />} />
+          <Route path="/checkout/cancel" element={<CheckoutCancel />} />
         </Routes>
+        <UsageLimitProvider />
         <BackToTop />
       </div>
     </BrowserRouter>

@@ -168,6 +168,7 @@ export const navLinks = [
   { label: 'Other Tools', to: '/other-tools' },
   { label: 'How to Use', to: '/how-to-use' },
   { label: 'FAQ', to: '/faq' },
+  { label: 'Pricing', to: '/pricing' },
 ];
 
 export const heroCategories = [

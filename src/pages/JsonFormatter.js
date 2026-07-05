@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { ensureToolUsage, UsageLimitError } from '../utils/toolUsage';
 import ToolNavbar from '../components/ToolNavbar';
 
 const INDENTS = [
@@ -25,6 +26,13 @@ function JsonFormatter() {
   };
 
   const handleFormat = () => {
+    try {
+      ensureToolUsage('json-formatter', 'JSON Formatter');
+    } catch (err) {
+      if (err instanceof UsageLimitError) return;
+      setError(err.message);
+      return;
+    }
     setError('');
     setSuccess('');
     setOutput('');
@@ -39,6 +47,13 @@ function JsonFormatter() {
   };
 
   const handleMinify = () => {
+    try {
+      ensureToolUsage('json-formatter', 'JSON Formatter');
+    } catch (err) {
+      if (err instanceof UsageLimitError) return;
+      setError(err.message);
+      return;
+    }
     setError('');
     setSuccess('');
     setOutput('');
@@ -53,6 +68,13 @@ function JsonFormatter() {
   };
 
   const handleValidate = () => {
+    try {
+      ensureToolUsage('json-formatter', 'JSON Formatter');
+    } catch (err) {
+      if (err instanceof UsageLimitError) return;
+      setError(err.message);
+      return;
+    }
     setError('');
     setSuccess('');
     setOutput('');

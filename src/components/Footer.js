@@ -17,6 +17,7 @@ function Footer() {
     {
       title: 'Resources',
       links: [
+        { label: 'Pricing', to: '/pricing' },
         { label: 'How to Use', to: '/how-to-use' },
         { label: 'FAQ', to: '/faq' },
         { label: 'Contact Us', to: '/contact-us' },

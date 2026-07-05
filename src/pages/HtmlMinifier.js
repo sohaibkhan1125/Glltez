@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { guardClientTool } from '../utils/guardClientTool';
 import ToolNavbar from '../components/ToolNavbar';
 
 const SAMPLE_HTML = `<!DOCTYPE html>
@@ -65,6 +66,7 @@ function HtmlMinifier() {
   const [stats, setStats] = useState(null);
 
   const handleMinify = () => {
+    if (!guardClientTool('html-minifier', 'HTML Minifier', setError)) return;
     setError('');
     setSuccess('');
     setOutput('');

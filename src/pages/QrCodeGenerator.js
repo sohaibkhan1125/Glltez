@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import QRCode from 'qrcode';
+import { guardClientTool } from '../utils/guardClientTool';
 import ToolNavbar from '../components/ToolNavbar';
 
 const SIZES = [
@@ -33,6 +34,7 @@ function QrCodeGenerator() {
   const [success, setSuccess] = useState('');
 
   const handleGenerate = async () => {
+    if (!guardClientTool('qr-code-generator', 'QR Code Generator', setError)) return;
     setError('');
     setSuccess('');
     setDataUrl('');

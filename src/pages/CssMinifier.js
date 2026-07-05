@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { guardClientTool } from '../utils/guardClientTool';
 import ToolNavbar from '../components/ToolNavbar';
 
 const SAMPLE_CSS = `/* Main layout styles */
@@ -64,6 +65,7 @@ function CssMinifier() {
   const [stats, setStats] = useState(null);
 
   const handleMinify = () => {
+    if (!guardClientTool('css-minifier', 'CSS Minifier', setError)) return;
     setError('');
     setSuccess('');
     setOutput('');
